@@ -1,6 +1,8 @@
 import { getReceiverInfo } from '../src/get-receiver-info/getReceiverInfo'
 
-test('getRc with it ir-keytable installed', async () => {
-  const x = await getReceiverInfo('ir-keytable')
-  console.log(x)
+
+
+
+test('not running a found command should throw getReceiverInfo ', async () => {
+  await expect(() => getReceiverInfo('not installed') ).rejects.toThrow();
 });

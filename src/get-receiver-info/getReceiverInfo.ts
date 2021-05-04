@@ -1,8 +1,9 @@
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
+import util from 'util'
+import child_process from 'child_process'
+const exec = util.promisify(child_process.exec);
 
 
-const getReceiverInfo = async (command) => {
+const getReceiverInfo = async (command: string): Promise<{ lirc: string, rc: string }> => {
   const out: string = (await exec(command)).stderr
   if (out.includes('not found')) {
     throw new Error(`

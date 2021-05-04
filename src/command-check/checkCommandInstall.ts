@@ -1,8 +1,9 @@
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
+import util from 'util'
+import child_process from 'child_process'
+const exec = util.promisify(child_process.exec);
 
 
-const checkCommandInstall = async (command) => {
+const checkCommandInstall = async (command: string): Promise<string> => {
   const rc: string = (await exec(command)).stderr
   if (rc.includes('not found')) {
     throw new Error(`
@@ -12,7 +13,7 @@ const checkCommandInstall = async (command) => {
     `);
   }
 
-  return rc 
+  return 'success'
 }
 
 export { checkCommandInstall }
