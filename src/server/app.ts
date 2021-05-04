@@ -10,8 +10,8 @@ app.get('/', (req, res) => {
   res.send( ir.rc );
 })
 
-app.get('scan', (req, res) => {
-
+app.get('scan/1', (req, res) => {
+  ir.scan1()
   res.send( "Hello world!" );
 })
 
