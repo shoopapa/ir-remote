@@ -9,13 +9,13 @@ const exec = util.promisify(child_process.exec);
 
 class Ir {
   public receiver: IrDevice;
-  public transmiter: IrDevice;
+  public transmitter: IrDevice;
   private timeout: number;
 
 
   constructor() {
     this.receiver = {lirc: "", rc: ""}
-    this.transmiter = {lirc: "", rc: ""}
+    this.transmitter = {lirc: "", rc: ""}
     this.timeout = parseInt(process.env.SCANTIMEOUT ?? "4000",10)
   }
 
@@ -23,7 +23,7 @@ class Ir {
     const { receiver, transmiter } = await getReceiverInfo()
     console.log(transmiter, receiver)
     this.receiver = receiver
-    this.transmiter = transmiter
+    this.transmitter = transmiter
   }
 
   private filePath(name:string | null): string {
@@ -42,7 +42,7 @@ class Ir {
   }
 
   async sendProtocol(protocol:string, scancode:string) {
-    const command =`ir-ctl --scancode=${protocol}:${scancode} -d /dev/${this.transmiter.lirc}`
+    const command =`ir-ctl --scancode=${protocol}:${scancode} -d /dev/${this.transmitter.lirc}`
     console.log('sendProtocol', command)
     await exec(command)
     return `transmitted scancode (${protocol}:${scancode})`
@@ -53,7 +53,7 @@ class Ir {
     if ( !exists ) {
       return `This file (${file}) already exists!`
     }
-    const command =`ir-ctl --send=${this.filePath(file)} -d /dev/${this.transmiter.lirc}`
+    const command =`ir-ctl --send=${this.filePath(file)} -d /dev/${this.transmitter.lirc}`
     console.log('sendFile', command)
     await exec(command)
     return `Transmitted file ${file}`
@@ -96,7 +96,7 @@ class Ir {
       return "failed to delete file"
     }
   }
-  
+
 }
 
 export {Ir}

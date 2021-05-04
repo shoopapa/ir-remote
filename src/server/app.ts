@@ -1,13 +1,26 @@
 import express from 'express'
 import {Ir} from '../ir'
+import * as fs from 'fs'
+import * as path from 'path'
+import * as process from 'process'
 const app = express()
 
 const ir = new Ir()
 ir.init()
 
-app.get('/', (req, res) => {
+app.get('/:file', async (req, res) => {
   // req.params
-  res.send( ir.receiver );
+  const html = path.join(process.cwd(), `./dist/${req.params.file}`)
+  console.log(html)
+  // const ret = (await fs.readFileSync(html,'utf-8'))
+  // console.log(ret)
+  res.sendFile( html );
+})
+
+
+app.get('/ir', (req, res) => {
+  // req.params
+  res.send( {receiver:ir.receiver, transmitter:ir.transmitter} );
 })
 
 app.get('/send', async (req, res) => {
