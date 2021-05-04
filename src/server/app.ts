@@ -8,15 +8,6 @@ const app = express()
 const ir = new Ir()
 ir.init()
 
-app.get('/:file', async (req, res) => {
-  // req.params
-  const html = path.join(process.cwd(), `./dist/${req.params.file}`)
-  console.log(html)
-  // const ret = (await fs.readFileSync(html,'utf-8'))
-  // console.log(ret)
-  res.sendFile( html );
-})
-
 
 app.get('/ir', (req, res) => {
   // req.params
@@ -60,6 +51,10 @@ app.get('/delete', async (req, res) => {
   }
 })
 
+app.get('/', async (req, res) => {
+  // req.params
+  res.send( 'Welcome to the ir-remote-api' );
+})
 
 
 
