@@ -22,7 +22,7 @@ class Ir {
     const command = `ir-keytable -t -s ${this.rc}`
 
     const ls = spawn(command);
-    
+
     ls.stdout.on('data', (data) => {
       console.log(`stdout: ${data}`);
       ls.kill('SIGHUP');
