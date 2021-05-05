@@ -4,11 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "yarn jest --watch",
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
-    "prestart": "yarn build",
-    "start": "node .",
+    "start": "cp -r /home/pi/code/ir-remote-app/build/* /home/pi/code/ir-remote/dist/ && sudo node . ",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\""
   },
   "author": "joe daivs",

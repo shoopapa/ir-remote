@@ -51,11 +51,7 @@ app.get('/delete', async (req, res) => {
   }
 })
 
-app.get('/', async (req, res) => {
-  // req.params
-  res.send( 'Welcome to the ir-remote-api' );
-})
-
+app.use('/', express.static(path.join(process.cwd(),'dist')))
 
 
 export {app}
